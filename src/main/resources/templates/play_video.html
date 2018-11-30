@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>播放 VLOG</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link href="css/video-js.min.css" th:href="@{/css/video-js.min.css}" rel="stylesheet">
+    <link th:href="@{/css/videojs-matrix.css}" rel="stylesheet">
+    <link th:href="@{/css/mv.css}" rel="stylesheet">
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <!--<script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>-->
+</head>
+<body style="background-color: #e9ecef">
+<header th:replace="~{index :: header}"></header>
+
+<main>
+    <section class="py-5 bg-light mt-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <video oncontextmenu = "return false" playsinline id="my-video" class="video-js vjs-16-9" controls preload="auto"
+                           poster="MY_VIDEO_POSTER.jpg" th:poster="@{${video.cover}}" data-setup="{}">
+                        <source src="MY_VIDEO.mp4" th:src="@{${video.path}}" type='video/mp4'>
+
+                        <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to a web browser that
+                            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                        </p>
+                    </video>
+
+                    <div class="clearfix shadow-sm">
+                        <div class="float-left pl-2 mt-3">
+                            <span class="text-dark font-weight-bold" id="online_num">1</span>
+                            <span class="text-muted">人正在看</span>
+                        </div>
+                        <form class="form-inline float-right m-2">
+                            <input id="emitContent" class="form-control mr-sm-2" type="text" placeholder="发送弹幕">
+                            <button id="sendBtn" class="btn btn-outline-success my-2 my-sm-0" type="button">发送</button>
+                        </form>
+                    </div>
+
+                    <div>
+                        <h4 class="pt-3" th:text="${video.title}"></h4>
+                        <small class="text-muted">6666播放 <span class="pl-2" th:text="${video.uploadTime}"></span></small>
+                        <div class="mt-3" style="background-color: #e9ecef; height: 1px; width: 100%;"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-inline">
+                            <img class="mx-3 rounded-circle my-3" th:src="@{${video.getUser().getAvatar()}}" data-src="holder.js/60x60" alt="头像">
+                            <h6 class="mx-2 my-3 inline" th:text="${video.getUser().getNickname()}">淡淡的忧伤</h6>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p th:text="${video.description}"></p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="bg-info text-white py-2">随便看看</div>
+
+                    <div class="" th:each="videoitem : ${videos}">
+                        <a th:href="@{'/video/'+${videoitem.id}}">
+                            <img style="width: 100%;" class="mt-1" th:src="@{${videoitem.cover}}" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{index :: footer}"></footer>
+<script src="/js/jquery-3.3.1.slim.min.js" th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+<script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="/js/holder.min.js" th:src="@{/js/holder.min.js}"></script>
+<script src="/js/video.min.js" th:src="@{/js/video.min.js}"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script th:src="@{/js/mv.js}"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/mv.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <title>VLOG</title>
+</head>
+<body>
+<!-- header -->
+<header class="bg-light" th:fragment="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" th:href="@{/index}">VLOG</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerD">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerD">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" th:href="@{/index}">首页<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">我的</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">关于</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0 mr-4">
+                    <input class="form-control mr-sm-2" type="search" placeholder="输入关键词">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+                </form>
+
+                <div th:if="${#httpServletRequest.remoteUser}">
+                    <a href="/user/3" th:href="@{'user/'+${#session.getAttribute('SPRING_SECURITY_CONTEXT').authentication.principal.id}}"><img th:width="40" th:height="40" class="ml-0 rounded-circle" th:src="@{${#session.getAttribute('SPRING_SECURITY_CONTEXT').authentication.principal.avatar}}" alt="头像"></a>
+                    <!--你好 <span class="mr-2" th:text="${#httpServletRequest.remoteUser}"></span>
+                    <a th:href="@{/logout}"><button type="button" class="btn btn-outline-dark">注销</button></a>-->
+                </div>
+
+                <div th:unless="${#httpServletRequest.remoteUser}">
+                    <a th:href="@{/login}"><button  type="button" class="btn btn-outline-dark">登录</button></a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- main -->
+<main>
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">VLOG</h1>
+            <p class="lead text-dark">VLOG，即Video Log，中文为视频日志。</p>
+            <p class="lead text-dark">取材于生活，分享给他人。</p>
+            <p class="lead text-dark">共同体会生活的多姿多彩。</p>
+            <a href="#" th:href="@{/video}" class="btn btn-primary my-2 btn-lg">Start Vlog</a>
+        </div>
+    </section>
+
+    <section class="py-5 bg-light">
+        <h2 class="text-center py-3">近期VLOG</h2>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4" th:each="video : ${videos}">
+                    <div class="card mb-4 shadow-sm">
+                        <a th:href="@{'/video/'+${video.id}}">
+                            <img class="card-img-top" th:src="@{${video.cover}}" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                        </a>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-9">
+                                    <h5 class="card-title" th:text="${video.title}">视频标题</h5>
+                                    <p class="card-text"><small class="text-muted" th:text="${video.uploadTime.toString()}"></small></p>
+                                </div>
+                                <div class="col-3">
+                                    <img class="mx-auto rounded-circle" th:src="@{${video.getUser().getAvatar()}}" data-src="holder.js/60x60" alt="头像">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- footer -->
+<footer class="bg-dark" th:fragment="footer">
+    <div class="container">
+        <div class="text-muted text-center py-5">
+            <p>我的邮箱 <a href="mailto:jlzhangood@163.com">jlzhangood@163.com</a></p>
+            <p><small>Copyright &copy; 2018 by Simpleflyer. All rights reserved.</small></p>
+        </div>
+    </div>
+</footer>
+
+<script src="/js/jquery-3.3.1.slim.min.js" th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+<script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="/js/holder.min.js" th:src="@{/js/holder.min.js}"></script>
+</body>
+</html>
