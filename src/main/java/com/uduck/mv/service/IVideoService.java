@@ -13,6 +13,8 @@ public interface IVideoService {
 
     List<VideoDTO> getVideoDtos(DataPage dataPage);
 
+    List<VideoDTO> getVideoDtosByUserId(Integer userId, DataPage dataPage);
+
     @Deprecated
     Video getVideoById(Integer id);
 

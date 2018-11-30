@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/mv.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <title>个人中心</title>
 </head>
 <body>
-Hello
+<header th:replace="~{index :: header}"></header>
+<main>
+    <section class="py-3 bg-info">
+        <div class="container">
+            <div class="form-inline">
+                <img class="mx-3 rounded-circle my-3" th:src="@{${#session.getAttribute('SPRING_SECURITY_CONTEXT').authentication.principal.avatar}}" data-src="holder.js/60x60" alt="头像">
+                <h4 class="mx-2 my-3 inline text-white" th:text="${#session.getAttribute('SPRING_SECURITY_CONTEXT').authentication.principal.nickname}">淡淡的忧伤</h4>
+            </div>
+        </div>
+    </section>
+    <section class="py-3 bg-light">
+        <h2 class="text-center py-3">我的VLOG</h2>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4" th:each="video : ${videos}">
+                    <div class="card mb-4 shadow-sm">
+                        <a th:href="@{'/video/'+${video.id}}">
+                            <img class="card-img-top" th:src="@{${video.cover}}" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${video.title}">视频标题</h5>
+                            <p class="card-text"><small class="text-muted" th:text="${video.uploadTime.toString()}"></small></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script src="/js/jquery-3.3.1.slim.min.js" th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+<script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="/js/holder.min.js" th:src="@{/js/holder.min.js}"></script>
 </body>
 </html>

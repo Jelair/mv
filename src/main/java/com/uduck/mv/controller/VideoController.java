@@ -55,7 +55,7 @@ public class VideoController {
         String newFileName = UUID.randomUUID().toString().replaceAll("-","");
         String netFileName = newFileName+ext;
         String url = "E:/upload/videos";
-        video.setPath("videos/"+netFileName);
+        video.setPath("/videos/"+netFileName);
         File target = new File(url + "/" + netFileName);
 
         File targetPath = new File(url);
@@ -81,7 +81,7 @@ public class VideoController {
             ConvertVideo.extractingImage(5,url + "/" + netFileName,thumbUrl+"/"+thumbName);
             String newThumbName = "r"+thumbName;
             ThumbUtil.compressImageByOriginalScale(thumbUrl+"/"+thumbName,thumbUrl+"/"+newThumbName,348,196);
-            video.setCover("covers/"+newThumbName);
+            video.setCover("/covers/"+newThumbName);
         } catch (IOException e) {
             e.printStackTrace();
         }

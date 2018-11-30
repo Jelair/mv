@@ -27,6 +27,9 @@ public class MvChannelInterceptor implements ChannelInterceptor {
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
         StompCommand command = accessor.getCommand();
         String sessionId = accessor.getSessionId();
+        String destination = accessor.getDestination();
+
+        System.out.println(destination);
 
         if (StompCommand.SUBSCRIBE.equals(command)){
             onlineNumSet.add(sessionId);

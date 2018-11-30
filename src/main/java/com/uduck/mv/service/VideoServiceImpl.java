@@ -46,6 +46,20 @@ public class VideoServiceImpl implements IVideoService {
     }
 
     @Override
+    public List<VideoDTO> getVideoDtosByUserId(Integer userId, DataPage dataPage) {
+        List<VideoDTO> videoDTOS = new ArrayList<>();
+        Sort sort = new Sort(Sort.Direction.fromString(dataPage.getDirection()),dataPage.getOrderBy());
+        int startPage = dataPage.getStart() / dataPage.getLength();
+        Pageable pageable = PageRequest.of(startPage, dataPage.getLength(), sort);
+        Page<Video> videos = videoRepository.findByUserId(userId, pageable);
+        videos.getContent().forEach(video -> {
+            VideoDTO videoDTO = modelMapper.map(video, VideoDTO.class);
+            videoDTOS.add(videoDTO);
+        });
+        return videoDTOS;
+    }
+
+    @Override
     @Deprecated
     public Video getVideoById(Integer id) {
         Video video = videoRepository.getOne(id);
@@ -58,6 +72,7 @@ public class VideoServiceImpl implements IVideoService {
         VideoDTO videoDTO = modelMapper.map(video, VideoDTO.class);
         return videoDTO;
     }
+
 
 
     @Override
