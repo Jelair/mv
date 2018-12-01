@@ -81,6 +81,13 @@ public class VideoServiceImpl implements IVideoService {
 
     @Override
     public Integer addVideo(Video video) {
+        if (video.getId() != null){
+            Video one = videoRepository.getOne(video.getId());
+            one.setTitle(video.getTitle());
+            one.setDescription(video.getDescription());
+            videoRepository.save(one);
+            return null;
+        }
         Video save = videoRepository.save(video);
         return null;
     }

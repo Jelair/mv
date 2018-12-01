@@ -32,6 +32,7 @@ public class VideoController {
     }
 
     @PostMapping(value = "/video", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ResponseBody
     public String addVideo(@RequestParam("file") MultipartFile file,
                            Video video){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -103,17 +104,6 @@ public class VideoController {
         video.setUploadTime(new Date());
         videoService.addVideo(video);
         return "redirect:/videos";
-    }
-
-    @PutMapping("/video")
-    public String updateVideo(Video video){
-        return "success";
-    }
-
-    @DeleteMapping("/video/{id}")
-    public String deleteVideo(@PathVariable("id") Integer id){
-        videoService.deleteVideoById(id);
-        return "success";
     }
 
     @GetMapping(value = "/video/{id}")
