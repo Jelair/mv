@@ -36,6 +36,11 @@ public class CommonPageController {
         return "success";
     }
 
+    @GetMapping("/about")
+    public String about(){
+        return "about";
+    }
+
     @GetMapping("/login")
     public String login(){
         return "login";

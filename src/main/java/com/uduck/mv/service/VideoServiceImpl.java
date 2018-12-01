@@ -3,6 +3,7 @@ package com.uduck.mv.service;
 import com.uduck.mv.entity.Video;
 import com.uduck.mv.entity.dto.VideoDTO;
 import com.uduck.mv.entity.form.DataPage;
+import com.uduck.mv.repository.PlayNumRepository;
 import com.uduck.mv.repository.VideoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class VideoServiceImpl implements IVideoService {
 
     @Autowired
     private VideoRepository videoRepository;
+
+    @Autowired
+    private PlayNumRepository playNumRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -91,5 +95,11 @@ public class VideoServiceImpl implements IVideoService {
     public Integer deleteVideoById(Integer id) {
         videoRepository.deleteById(id);
         return null;
+    }
+
+    @Override
+    public Integer getPlayNumByVideoId(Integer id) {
+        Integer num = playNumRepository.getNum("/topic/online/" + id);
+        return num;
     }
 }

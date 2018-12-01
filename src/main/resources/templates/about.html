@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/mv.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <title>关于</title>
+</head>
+<body>
+<header th:replace="~{index :: header}"></header>
+<main>
+    <section class="py-3 bg-light">
+
+        <div class="container">
+            <h2 class="text-center"><span id="typemsg"></span></h2>
+            <ul>
+                <li>Jelair</li>
+                <li>jlzhangood@163.com</li>
+                <li>jlzhangood@gmail.com</li>
+                <li>我的 GitHub</li>
+                <li>我的掘金</li>
+                <li>我在 B 站</li>
+            </ul>
+        </div>
+    </section>
+</main>
+<script th:src="@{/js/typed.min.js}"></script>
+<script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/holder.min.js}"></script>
+<script>
+    new Typed("#typemsg",{
+        strings: ["I'm Uduck",'Another netname is Simpleflyer','My skill: Java Python Objective-C'],
+        typeSpeed: 200,
+        startDelay: 100,
+        loop: true,
+        loopCount: Infinity,
+        showCursor: true,
+        cursorChar: ' | ',
+        autoInsertCss: true,
+        fadeOut: true,
+        fadeOutClass: 'typed-fade-out',
+        fadeOutDelay: 500,
+    });
+</script>
+</body>
+</html>

@@ -25,4 +25,6 @@ public interface IVideoService {
     Integer updateVideo(Video video);
 
     Integer deleteVideoById(Integer id);
+
+    Integer getPlayNumByVideoId(Integer id);
 }

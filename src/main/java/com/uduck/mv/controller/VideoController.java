@@ -18,10 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class VideoController {
@@ -143,5 +140,15 @@ public class VideoController {
         DataPage dataPage = new DataPage();
         List<VideoDTO> videos = videoService.getVideoDtos(dataPage);
         return videos;
+    }
+
+    @GetMapping("/api/playNum/{id}")
+    @ResponseBody
+    public Object getPlayNum(@PathVariable("id") Integer id){
+        Integer playNum = videoService.getPlayNumByVideoId(id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("videoId", id);
+        map.put("playNum", playNum);
+        return map;
     }
 }

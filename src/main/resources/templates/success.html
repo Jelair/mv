@@ -2,9 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/mv.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
     <title>成功啦</title>
 </head>
 <body>
-Success
+<header th:replace="~{index :: header}"></header>
+<main>
+    <section class="py-5" style="background-color: #e9ecef;">
+        <div class="container text-center">
+            <h2>成功啦</h2>
+            <a class="btn btn-outline-success" th:href="@{/}">返回首页</a>
+        </div>
+    </section>
+</main>
+
+<script src="/js/jquery-3.3.1.slim.min.js" th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+<script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="/js/holder.min.js" th:src="@{/js/holder.min.js}"></script>
 </body>
 </html>
