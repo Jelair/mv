@@ -65,4 +65,17 @@ public class VFileUtil {
         }
         return -1;
     }
+
+    public static int isNeedToConvert(String path){
+        String fmt = extractFmt(path);
+        if (fmt == null){
+            return -1;
+        }
+        String type = fmt.toLowerCase();
+        if (type.equals("mp4") || type.equals("mkv")){
+            return 0;
+        } else{
+            return 1;
+        }
+    }
 }

@@ -7,7 +7,9 @@ import com.uduck.mv.entity.form.DataPage;
 import com.uduck.mv.security.MvUserDetails;
 import com.uduck.mv.service.IVideoService;
 import com.uduck.mv.util.ConvertVideo;
+import com.uduck.mv.util.ResponseResult;
 import com.uduck.mv.util.ThumbUtil;
+import com.uduck.mv.util.VFileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,18 +35,18 @@ public class VideoController {
 
     @PostMapping(value = "/video", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
-    public String addVideo(@RequestParam("file") MultipartFile file,
-                           Video video){
+    public ResponseResult addVideo(@RequestParam("file") MultipartFile file,
+                                   Video video){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal != null && principal instanceof MvUserDetails){
             User user = new User();
             user.setId(((MvUserDetails) principal).getId());
             video.setUser(user);
         } else {
-            return "redirect:/error";
+            return ResponseResult.fail(ResponseResult.Status.FORBIDDEN);
         }
         if (file.isEmpty()){
-            return "redirect:/error";
+            return ResponseResult.fail(ResponseResult.Status.NOT_FOUND);
         }
         String fileName = file.getOriginalFilename();
         // 获取文件的扩展名
@@ -53,8 +55,8 @@ public class VideoController {
         String newFileName = UUID.randomUUID().toString().replaceAll("-","");
         String netFileName = newFileName+ext;
         String url = "E:/upload/videos";
-        video.setPath("/videos/"+netFileName);
-        File target = new File(url + "/" + netFileName);
+        String fullNetFilePath = url + "/" + netFileName;
+        File target = new File(fullNetFilePath);
 
         File targetPath = new File(url);
         if (!targetPath.exists()){
@@ -64,7 +66,22 @@ public class VideoController {
             file.transferTo(target);
         } catch (IOException e){
             e.printStackTrace();
-            return "redirect:/error";
+            return ResponseResult.fail(ResponseResult.Status.SERVER_ERROR);
+        }
+
+        /******************转码*******************/
+        int infoFmt = VFileUtil.isNeedToConvert(fullNetFilePath);
+        int canFmt = VFileUtil.checkContentType(fullNetFilePath);
+        if (infoFmt == 1 && canFmt == 0){
+            String convertFilePath = url + "/" + newFileName;
+            try {
+                ConvertVideo.formatConversion(convertFilePath+ext,convertFilePath+".mp4");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            video.setPath("/videos/"+newFileName+".mp4");
+        } else {
+            video.setPath("/videos/"+netFileName);
         }
 
         /******************封面*******************/
@@ -103,7 +120,7 @@ public class VideoController {
 
         video.setUploadTime(new Date());
         videoService.addVideo(video);
-        return "redirect:/videos";
+        return ResponseResult.success();
     }
 
     @GetMapping(value = "/video/{id}")

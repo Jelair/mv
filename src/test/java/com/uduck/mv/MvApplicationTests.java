@@ -47,8 +47,8 @@ public class MvApplicationTests {
 
 	@Test
 	public void thumbResize(){
-		String inputStr = "E:/upload/avatars/img2.jpg";
-		String outputStr = "E:/upload/avatars/img2.jpg";
+		String inputStr = "E:/upload/avatars/defaultAvatar.jpeg";
+		String outputStr = "E:/upload/avatars/defaultAvatar.jpeg";
 		try {
 			ThumbUtil.compressImageByOriginalScale(inputStr,outputStr,60,60);
 		} catch (IOException e) {

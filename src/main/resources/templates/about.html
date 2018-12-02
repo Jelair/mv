@@ -8,24 +8,61 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <title>关于</title>
 </head>
-<body>
+<body style="background-color: #e9ecef">
 <header th:replace="~{index :: header}"></header>
 <main>
-    <section class="py-3 bg-light">
-
+    <section class="py-3 bg-light mt-1">
         <div class="container">
-            <h2 class="text-center"><span id="typemsg"></span></h2>
+            <div class="py-3">
+                <h1>Hello, I'm Jelair Zhang</h1>
+                <h4><span id="typemsg"></span></h4>
+            </div>
+            <div class="py-3">
+                <h3>ABOUT ME</h3>
+                <p>我是一个不会做自我介绍的人。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-3 bg-light mt-1">
+        <div class="container">
+            <h3>本站已完成的功能</h3>
             <ul>
-                <li>Jelair</li>
-                <li>jlzhangood@163.com</li>
-                <li>jlzhangood@gmail.com</li>
-                <li>我的 GitHub</li>
-                <li>我的掘金</li>
-                <li>我在 B 站</li>
+                <li>用户登录认证和授权</li>
+                <li>用户角色（用户、管理员、系统管理员）</li>
+                <li>视频的上传</li>
+                <li>视频转码与截图</li>
+                <li>视频在线播放</li>
+                <li>视频播放次数统计</li>
+                <li>在线同时观看人数</li>
+                <li>视频信息修改和删除（操作前进行信息认证）</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="py-3 bg-light mt-1">
+        <div class="container">
+            <h3>本站将添加的功能</h3>
+            <ul>
+                <li>服务缓存</li>
+                <li>敏感词过滤</li>
+                <li>用户发弹幕</li>
+                <li>视频分页显示</li>
+                <li>网页优化（图片懒加载、网页压缩）</li>
+                <li>用户头像自定义</li>
+                <li>用户资料管理与更新</li>
+                <li>访问用户资料页</li>
+                <li>用户之间订阅</li>
+                <li>管理员视频审核</li>
+                <li>视频搜索</li>
+                <li>推荐视频</li>
+                <li>视频Top榜</li>
+                <li>第三方登录入口接入（QQ、GitHub）</li>
             </ul>
         </div>
     </section>
 </main>
+<footer th:replace="~{index :: footer}"></footer>
 <script th:src="@{/js/typed.min.js}"></script>
 <script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
@@ -33,7 +70,7 @@
 <script th:src="@{/js/holder.min.js}"></script>
 <script>
     new Typed("#typemsg",{
-        strings: ["I'm Uduck",'Another netname is Simpleflyer','My skill: Java Python Objective-C'],
+        strings: ["I'm a software engineer.",'Computer Science and Algorithm.','Natural Language Processing and Machine Learning.'],
         typeSpeed: 200,
         startDelay: 100,
         loop: true,
@@ -44,6 +81,11 @@
         fadeOut: true,
         fadeOutClass: 'typed-fade-out',
         fadeOutDelay: 500,
+    });
+
+    $(function () {
+        $('.nav-item').removeClass('active');
+        $('.nav-item:eq(2)').addClass('active');
     });
 </script>
 </body>

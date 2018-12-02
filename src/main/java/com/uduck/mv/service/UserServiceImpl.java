@@ -38,6 +38,7 @@ public class UserServiceImpl implements IUserService {
         user.setCreateTime(new Date());
         user.setLastUpdateTime(new Date());
         user.setNickname(user.getUsername());
+        user.setAvatar("/img/defaultAvatar.jpeg");
         User save = userRepository.save(user);
         Role role = new Role();
         role.setName(RoleConstant.ROLE_USER);

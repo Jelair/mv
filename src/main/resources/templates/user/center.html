@@ -16,6 +16,7 @@
             <div class="form-inline">
                 <img class="mx-3 rounded-circle my-3" th:src="@{${#session.getAttribute('SPRING_SECURITY_CONTEXT').authentication.principal.avatar}}" data-src="holder.js/60x60" alt="头像">
                 <h4 class="mx-2 my-3 inline text-white" th:text="${#session.getAttribute('SPRING_SECURITY_CONTEXT').authentication.principal.nickname}">淡淡的忧伤</h4>
+                <a class="btn btn-danger btn-sm text-white my-3 mx-2" th:href="@{/logout}">退出登录</a>
             </div>
         </div>
     </section>
@@ -30,15 +31,15 @@
                             <img class="card-img-top" th:src="@{${video.cover}}" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
                         </a>
                         <div class="card-body">
+                            <h5 class="card-title line-limit-length" th:text="${video.title}">视频标题</h5>
                             <div class="row">
                                 <div class="col-7">
-                                    <h5 class="card-title" th:text="${video.title}">视频标题</h5>
                                     <p class="card-text"><small class="text-muted" th:text="${video.uploadTime.toString()}"></small></p>
                                 </div>
                                 <div class="col-5">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a th:href="@{'/user/video/'+${video.getId()}}"><button type="button" class="btn btn-primary">编辑</button></a>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delVideoModal" th:vlog_title="${video.getTitle()}" th:vlog_id="${video.getId()}" onclick="deleteVideo(this)">删除</button>
+                                    <div class="float-right btn-group mr-1" role="group" aria-label="Basic example">
+                                        <a th:href="@{'/user/video/'+${video.getId()}}"><button type="button" class="btn btn-primary btn-sm">编辑</button></a>
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delVideoModal" th:vlog_title="${video.getTitle()}" th:vlog_id="${video.getId()}" onclick="deleteVideo(this)">删除</button>
                                         <!-- Button trigger modal -->
                                     </div>
                                 </div>
@@ -91,11 +92,17 @@
             url: "/user/video/"+videoId,
             type: "DELETE",
             success: function (result) {
+                console.log(result);
                 $("#delVideoModal").modal("hide");
-                window.location.reload();
+                //window.location.reload();
             }
         });
     }
+
+    $(function () {
+        $('.nav-item').removeClass('active');
+        $('.nav-item:eq(1)').addClass('active');
+    });
 </script>
 </body>
 </html>
