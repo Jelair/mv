@@ -1,8 +1,9 @@
 package com.uduck.mv.entity.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class VideoDTO {
+public class VideoDTO implements Serializable {
     private Integer id;
 
     private String title;
@@ -13,9 +14,19 @@ public class VideoDTO {
 
     private String cover;
 
+    private int status;
+
     private String uploadTime;
 
     private VideoUserDTO user;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;

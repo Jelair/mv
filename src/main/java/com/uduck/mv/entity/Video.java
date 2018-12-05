@@ -27,10 +27,20 @@ public class Video {
 
     private String cover;
 
+    private int status;
+
     @Column(name = "upload_time")
     //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date uploadTime;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public User getUser() {
         return user;

@@ -1,11 +1,15 @@
 package com.uduck.mv;
 
+import com.uduck.mv.entity.dto.VideoUserDTO;
 import com.uduck.mv.util.ConvertVideo;
 import com.uduck.mv.util.ThumbUtil;
 import com.uduck.mv.util.VFileUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
@@ -57,9 +61,22 @@ public class MvApplicationTests {
 		System.out.println("over============>");
 	}
 
+	@Autowired
+	private StringRedisTemplate stringRedisTemplate;
+	@Autowired
+	private RedisTemplate redisTemplate;
+
 	@Test
-	public void testPage(){
-
-	}
-
+	public void testRedisString(){
+		//stringRedisTemplate.opsForValue().set("userSize", "128");
+        //String userSize = stringRedisTemplate.opsForValue().get("userSize");
+        //System.out.println(userSize);
+        VideoUserDTO o = new VideoUserDTO();
+        o.setAvatar("http://www.baidu.com");
+        o.setId(123321);
+        o.setNickname("Test");
+        //redisTemplate.opsForValue().set("videoUser", o);
+        Object videoUser = redisTemplate.opsForValue().get("videoUser");
+        System.out.println(videoUser.toString());
+    }
 }

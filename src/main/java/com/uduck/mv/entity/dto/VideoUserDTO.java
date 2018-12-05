@@ -1,6 +1,8 @@
 package com.uduck.mv.entity.dto;
 
-public class VideoUserDTO {
+import java.io.Serializable;
+
+public class VideoUserDTO implements Serializable {
     private Integer id;
 
     private String nickname;

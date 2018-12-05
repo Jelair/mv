@@ -1,5 +1,9 @@
 package com.uduck.mv.entity.form;
 
+import com.uduck.mv.constant.VideoStatus;
+
+import java.io.Serializable;
+
 public class DataPage {
 
     private int start;
@@ -8,11 +12,22 @@ public class DataPage {
     private String direction;
     private String orderBy;
 
+    private int status;
+
     public DataPage() {
         this.start = 0;
         this.length = 6;
         this.direction = "desc";
         this.orderBy = "id";
+        this.status = VideoStatus.APPROVED;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getStart() {
@@ -45,5 +60,15 @@ public class DataPage {
 
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
+    }
+
+    @Override
+    public String toString() {
+        return "DataPage{" +
+                "start=" + start +
+                ", length=" + length +
+                ", direction='" + direction + '\'' +
+                ", orderBy='" + orderBy + '\'' +
+                '}';
     }
 }

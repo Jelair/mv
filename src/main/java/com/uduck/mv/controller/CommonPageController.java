@@ -46,6 +46,11 @@ public class CommonPageController {
         return "login";
     }
 
+    @GetMapping("/error")
+    public String error(){
+        return "404";
+    }
+
     @GetMapping("/test")
     @ResponseBody
     public Object test(HttpServletRequest request){

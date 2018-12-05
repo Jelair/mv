@@ -1,5 +1,6 @@
 package com.uduck.mv.controller;
 
+import com.uduck.mv.constant.VideoStatus;
 import com.uduck.mv.entity.User;
 import com.uduck.mv.entity.Video;
 import com.uduck.mv.entity.dto.VideoDTO;
@@ -119,6 +120,7 @@ public class VideoController {
         }*/
 
         video.setUploadTime(new Date());
+        video.setStatus(VideoStatus.REVIEW);
         videoService.addVideo(video);
         return ResponseResult.success();
     }
@@ -126,11 +128,16 @@ public class VideoController {
     @GetMapping(value = "/video/{id}")
     public String playVideoPage(@PathVariable("id") Integer id, Map<String,Object> map){
         VideoDTO video = videoService.getVideoDtoById(id);
-        DataPage dataPage = new DataPage();
-        List<VideoDTO> videos = videoService.getVideoDtos(dataPage);
-        map.put("videos",videos);
-        map.put("video", video);
-        return "play_video";
+        if (video == null)
+            return "404";
+        if (video.getStatus() == VideoStatus.APPROVED){
+            DataPage dataPage = new DataPage();
+            List<VideoDTO> videos = videoService.getVideoDtos(dataPage);
+            map.put("videos",videos);
+            map.put("video", video);
+            return "play_video";
+        }
+        return "403";
     }
 
     @GetMapping(value = {"/","/index","/videos"})

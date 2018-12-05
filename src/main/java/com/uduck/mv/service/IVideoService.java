@@ -1,6 +1,7 @@
 package com.uduck.mv.service;
 
 import com.uduck.mv.entity.Video;
+import com.uduck.mv.entity.VideoCheck;
 import com.uduck.mv.entity.dto.VideoDTO;
 import com.uduck.mv.entity.form.DataPage;
 
@@ -12,6 +13,8 @@ public interface IVideoService {
     List<Video> getVideos();
 
     List<VideoDTO> getVideoDtos(DataPage dataPage);
+
+    //List<VideoDTO> getVideoDtosByAdmin(DataPage dataPage);
 
     List<VideoDTO> getVideoDtosByUserId(Integer userId, DataPage dataPage);
 
@@ -27,4 +30,6 @@ public interface IVideoService {
     Integer deleteVideoById(Integer id);
 
     Integer getPlayNumByVideoId(Integer id);
+
+    boolean checkVideo(VideoCheck videoCheck);
 }

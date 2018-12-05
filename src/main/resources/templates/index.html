@@ -24,6 +24,9 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#" th:href="@{/index}">首页<span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item" th:if="${#httpServletRequest.remoteUser} and ${#session.getAttribute('SPRING_SECURITY_CONTEXT').authentication.authorities[0]['authority']} eq 'ROLE_ADMIN'">
+                        <a class="nav-link" href="#" th:href="@{/admin/review_videos}">审核</a>
+                    </li>
                     <li class="nav-item" th:if="${#httpServletRequest.remoteUser}">
                         <a class="nav-link" href="#" th:href="@{'/user/'+${#session.getAttribute('SPRING_SECURITY_CONTEXT').authentication.principal.id}}">我的</a>
                     </li>
