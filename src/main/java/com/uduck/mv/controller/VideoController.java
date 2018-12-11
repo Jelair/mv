@@ -7,6 +7,7 @@ import com.uduck.mv.entity.dto.VideoDTO;
 import com.uduck.mv.entity.form.DataPage;
 import com.uduck.mv.properties.FileLocationProperties;
 import com.uduck.mv.security.MvUserDetails;
+import com.uduck.mv.service.IVideoSearchService;
 import com.uduck.mv.service.IVideoService;
 import com.uduck.mv.util.ConvertVideo;
 import com.uduck.mv.util.ResponseResult;
@@ -29,6 +30,9 @@ public class VideoController {
 
     @Autowired
     private IVideoService videoService;
+
+    @Autowired
+    private IVideoSearchService videoSearchService;
 
     @Autowired
     private FileLocationProperties fileLocationProperties;
@@ -152,6 +156,14 @@ public class VideoController {
         List<VideoDTO> videos = videoService.getVideoDtos(dataPage);
         map.put("videos",videos);
         return "index";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("searchStr") String searchStr,
+                         Map<String,Object> map){
+        List<VideoDTO> videoDTOS = videoSearchService.searchVideo(null, null, searchStr);
+        map.put("videos",videoDTOS);
+        return "search";
     }
 
     @GetMapping("/api/videoDtos")

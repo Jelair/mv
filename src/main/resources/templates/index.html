@@ -34,8 +34,8 @@
                         <a class="nav-link" href="#" th:href="@{/about}">关于</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0 mr-4">
-                    <input class="form-control mr-sm-2" type="search" placeholder="输入关键词">
+                <form class="form-inline my-2 my-lg-0 mr-4" action="/search">
+                    <input name="searchStr" class="form-control mr-sm-2" type="search" placeholder="输入关键词">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
                 </form>
 
@@ -59,7 +59,6 @@
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">VLOG</h1>
-            <p class="lead text-dark">VLOG，即Video Log，中文为视频日志。</p>
             <p class="lead text-dark">取材于生活，分享给他人。</p>
             <p class="lead text-dark">共同体会生活的多姿多彩。</p>
             <a href="#" th:href="@{/video}" class="btn btn-primary my-2 btn-lg">Start Vlog</a>

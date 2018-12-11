@@ -1,8 +1,11 @@
 package com.uduck.mv.entity.dto;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Document(indexName = "vlog")
 public class VideoDTO implements Serializable {
     private Integer id;
 

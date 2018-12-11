@@ -36,6 +36,9 @@ public class VideoServiceImpl implements IVideoService {
     private VideoCheckRepository videoCheckRepository;
 
     @Autowired
+    private IVideoSearchService videoSearchService;
+
+    @Autowired
     private PlayNumRepository playNumRepository;
 
     @Autowired
@@ -116,6 +119,7 @@ public class VideoServiceImpl implements IVideoService {
     @CacheEvict
     public Integer deleteVideoById(Integer id) {
         videoRepository.deleteById(id);
+        videoSearchService.delVideo(id);
         return null;
     }
 
@@ -133,6 +137,10 @@ public class VideoServiceImpl implements IVideoService {
         one.setStatus(videoCheck.getResult());
         videoRepository.save(one);
         videoCheckRepository.save(videoCheck);
+
+        VideoDTO videoDTO = modelMapper.map(one, VideoDTO.class);
+        videoSearchService.addVideo(videoDTO);
+
         return true;
     }
 

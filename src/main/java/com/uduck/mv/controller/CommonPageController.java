@@ -2,11 +2,15 @@ package com.uduck.mv.controller;
 
 import com.uduck.mv.entity.User;
 import com.uduck.mv.entity.dto.UserDTO;
+import com.uduck.mv.entity.dto.VideoDTO;
 import com.uduck.mv.service.IUserService;
+import com.uduck.mv.service.IVideoSearchService;
+import com.uduck.mv.service.IVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,6 +22,10 @@ import java.util.*;
 public class CommonPageController {
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IVideoSearchService videoSearchService;
+    @Autowired
+    private IVideoService videoService;
 
     @GetMapping("/register")
     public String register(){
@@ -63,5 +71,16 @@ public class CommonPageController {
         }
         map.put("user", principal);
         return map;
+    }
+
+    @GetMapping("/test/es/{searchStr}")
+    @ResponseBody
+    public Object testElasticSearch(@PathVariable("searchStr") String searchStr){
+        //VideoDTO video = videoService.getVideoDtoById(72);
+        //videoSearchService.addVideo(video);
+        System.out.println(searchStr);
+        List<VideoDTO> videoDTOS = videoSearchService.searchVideo(null, null, searchStr);
+        System.out.println(videoDTOS);
+        return videoDTOS;
     }
 }

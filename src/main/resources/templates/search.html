@@ -6,19 +6,19 @@
     <link rel="stylesheet" href="/css/mv.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
-    <title>待审核 VLOG</title>
+    <title>搜索 VLOG</title>
 </head>
 <body style="background-color: #e9ecef">
 <header th:replace="~{index :: header}"></header>
 <main>
     <section class="py-5 bg-light mt-1">
-        <h2 class="text-center py-3">待审核 VLOG</h2>
+        <h2 class="text-center py-3">VLOG</h2>
         <div class="container">
             <div class="row">
 
                 <div class="col-md-4" th:each="video : ${videos}">
                     <div class="card mb-4 shadow-sm">
-                        <a th:href="@{'/admin/review_video/'+${video.id}}">
+                        <a th:href="@{'/video/'+${video.id}}">
                             <img class="card-img-top lazy-img" th:lazyload="@{${video.cover}}" src="/img/loading.gif" alt="Card image cap">
                         </a>
                         <div class="card-body">
@@ -45,11 +45,5 @@
 <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 <script src="/js/holder.min.js" th:src="@{/js/holder.min.js}"></script>
 <script th:src="@{/js/lazyloadimg.js}"></script>
-<script>
-    $(function () {
-        $('.nav-item').removeClass('active');
-        $('.nav-item:eq(1)').addClass('active');
-    });
-</script>
 </body>
 </html>
