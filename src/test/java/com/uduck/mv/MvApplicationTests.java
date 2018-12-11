@@ -20,7 +20,7 @@ public class MvApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		String name = "test.jpg";
+/*		String name = "test.jpg";
 		boolean b = VFileUtil.checkFile(name);
 		System.out.println("checkFile: " + b);
 		String n = VFileUtil.extractName(name);
@@ -28,8 +28,9 @@ public class MvApplicationTests {
 		String fmt = VFileUtil.extractFmt(name);
 		System.out.println("extractFmt: " + fmt);
 		int status = VFileUtil.checkContentType(name);
-		System.out.println(status);
+		System.out.println(status);*/
 	}
+/*
 
 	@Test
 	public void videoConvert(){
@@ -51,32 +52,15 @@ public class MvApplicationTests {
 
 	@Test
 	public void thumbResize(){
-		String inputStr = "E:/upload/avatars/defaultAvatar.jpeg";
-		String outputStr = "E:/upload/avatars/defaultAvatar.jpeg";
+		String inputStr = "E:/upload/covers/img_loading.gif";
+		String outputStr = "E:/upload/covers/img_loading.gif";
 		try {
-			ThumbUtil.compressImageByOriginalScale(inputStr,outputStr,60,60);
+			ThumbUtil.compressImageByOriginalScale(inputStr,outputStr,348,196);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		System.out.println("over============>");
-	}
+	}*/
 
-	@Autowired
-	private StringRedisTemplate stringRedisTemplate;
-	@Autowired
-	private RedisTemplate redisTemplate;
 
-	@Test
-	public void testRedisString(){
-		//stringRedisTemplate.opsForValue().set("userSize", "128");
-        //String userSize = stringRedisTemplate.opsForValue().get("userSize");
-        //System.out.println(userSize);
-        VideoUserDTO o = new VideoUserDTO();
-        o.setAvatar("http://www.baidu.com");
-        o.setId(123321);
-        o.setNickname("Test");
-        //redisTemplate.opsForValue().set("videoUser", o);
-        Object videoUser = redisTemplate.opsForValue().get("videoUser");
-        System.out.println(videoUser.toString());
-    }
 }

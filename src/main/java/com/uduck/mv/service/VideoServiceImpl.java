@@ -127,6 +127,7 @@ public class VideoServiceImpl implements IVideoService {
 
     @Override
     @Transactional
+    @CacheEvict(key = "#videoCheck.videoId")
     public boolean checkVideo(VideoCheck videoCheck) {
         Video one = videoRepository.getOne(videoCheck.getVideoId());
         one.setStatus(videoCheck.getResult());

@@ -29,7 +29,7 @@
                     <div class="card mb-4 shadow-sm">
                         <div style="position: relative;">
                             <a th:href="@{'/video/'+${video.id}}">
-                                <img class="card-img-top" th:src="@{${video.cover}}" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                                <img class="card-img-top lazy-img" src="/img/loading.gif" th:lazyload="@{${video.cover}}" alt="Card image cap">
                             </a>
                             <div style="position: absolute; bottom: 0;" class="w-100 text-center text-white bg-info py-1" th:if="${video.status}==0">待审核</div>
                             <div style="position: absolute; bottom: 0;" class="w-100 text-center text-white bg-danger py-1" th:if="${video.status}==2">未通过</div>
@@ -82,6 +82,7 @@
 <script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 <script src="/js/holder.min.js" th:src="@{/js/holder.min.js}"></script>
+<script th:src="@{/js/lazyloadimg.js}"></script>
 <script>
     function deleteVideo(el) {
         var vlog_id = $(el).attr('vlog_id');
@@ -98,7 +99,7 @@
             success: function (result) {
                 console.log(result);
                 $("#delVideoModal").modal("hide");
-                //window.location.reload();
+                window.location.reload();
             }
         });
     }

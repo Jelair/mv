@@ -19,7 +19,7 @@
                 <div class="col-md-4" th:each="video : ${videos}">
                     <div class="card mb-4 shadow-sm">
                         <a th:href="@{'/admin/review_video/'+${video.id}}">
-                            <img class="card-img-top" th:src="@{${video.cover}}" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                            <img class="card-img-top lazy-img" th:lazyload="@{${video.cover}}" src="/img/loading.gif" alt="Card image cap">
                         </a>
                         <div class="card-body">
                             <div class="row">
@@ -28,7 +28,7 @@
                                     <p class="card-text"><small class="text-muted" th:text="${video.uploadTime.toString()}"></small></p>
                                 </div>
                                 <div class="col-3">
-                                    <img class="mx-auto rounded-circle" th:src="@{${video.getUser().getAvatar()}}" data-src="holder.js/60x60" alt="头像">
+                                    <img class="mx-auto rounded-circle lazy-img" th:lazyload="@{${video.getUser().getAvatar()}}" data-src="holder.js/60x60" alt="头像">
                                 </div>
                             </div>
                         </div>
@@ -44,6 +44,7 @@
 <script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 <script src="/js/holder.min.js" th:src="@{/js/holder.min.js}"></script>
+<script th:src="@{/js/lazyloadimg.js}"></script>
 <script>
     $(function () {
         $('.nav-item').removeClass('active');

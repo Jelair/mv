@@ -5,6 +5,7 @@ import com.uduck.mv.entity.User;
 import com.uduck.mv.entity.Video;
 import com.uduck.mv.entity.dto.VideoDTO;
 import com.uduck.mv.entity.form.DataPage;
+import com.uduck.mv.properties.FileLocationProperties;
 import com.uduck.mv.security.MvUserDetails;
 import com.uduck.mv.service.IVideoService;
 import com.uduck.mv.util.ConvertVideo;
@@ -28,6 +29,9 @@ public class VideoController {
 
     @Autowired
     private IVideoService videoService;
+
+    @Autowired
+    private FileLocationProperties fileLocationProperties;
 
     @GetMapping("/video")
     public String addVideoPage(){
@@ -55,8 +59,9 @@ public class VideoController {
         // 使用UUID给图片重命名，并去掉四个“-”
         String newFileName = UUID.randomUUID().toString().replaceAll("-","");
         String netFileName = newFileName+ext;
-        String url = "E:/upload/videos";
-        String fullNetFilePath = url + "/" + netFileName;
+        //String url = "E:/upload/videos";
+        String url = fileLocationProperties.getVideoLocation();
+        String fullNetFilePath = url + netFileName;
         File target = new File(fullNetFilePath);
 
         File targetPath = new File(url);
@@ -74,7 +79,7 @@ public class VideoController {
         int infoFmt = VFileUtil.isNeedToConvert(fullNetFilePath);
         int canFmt = VFileUtil.checkContentType(fullNetFilePath);
         if (infoFmt == 1 && canFmt == 0){
-            String convertFilePath = url + "/" + newFileName;
+            String convertFilePath = url + newFileName;
             try {
                 ConvertVideo.formatConversion(convertFilePath+ext,convertFilePath+".mp4");
             } catch (IOException e) {
@@ -86,7 +91,8 @@ public class VideoController {
         }
 
         /******************封面*******************/
-        String thumbUrl = "E:/upload/covers";
+        //String thumbUrl = "E:/upload/covers";
+        String thumbUrl = fileLocationProperties.getCoverLocation();
         String thumbName = newFileName+".jpg";
 
         File targetPathThumb = new File(thumbUrl);
@@ -94,9 +100,9 @@ public class VideoController {
             targetPathThumb.mkdirs();
         }
         try {
-            ConvertVideo.extractingImage(5,url + "/" + netFileName,thumbUrl+"/"+thumbName);
+            ConvertVideo.extractingImage(5,url + netFileName,thumbUrl + thumbName);
             String newThumbName = "r"+thumbName;
-            ThumbUtil.compressImageByOriginalScale(thumbUrl+"/"+thumbName,thumbUrl+"/"+newThumbName,348,196);
+            ThumbUtil.compressImageByOriginalScale(thumbUrl + thumbName,thumbUrl + newThumbName,348,196);
             video.setCover("/covers/"+newThumbName);
         } catch (IOException e) {
             e.printStackTrace();

@@ -41,7 +41,7 @@ public class MvChannelInterceptor implements ChannelInterceptor {
         String destination = accessor.getDestination();
 
         if (StompCommand.SUBSCRIBE.equals(command)){
-            System.out.println("******************* subscribe --- destination:"+destination);
+            //System.out.println("******************* subscribe --- destination:"+destination);
             if (destination != null && destination.contains("/topic/online/")){
                 session2destination.put(sessionId, destination);
                 onlineNumRepository.addOnlineNum(destination, sessionId);

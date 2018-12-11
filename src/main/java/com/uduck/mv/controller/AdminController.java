@@ -40,7 +40,7 @@ public class AdminController {
         dataPage.setStatus(VideoStatus.REVIEW);
         List<VideoDTO> videoDtos = videoService.getVideoDtos(dataPage);
         map.put("videos", videoDtos);
-        return "/admin/review_videos";
+        return "admin/review_videos";
     }
 
     @PostMapping("/admin/checkVideo")

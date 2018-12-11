@@ -8,8 +8,11 @@ import java.util.Set;
 
 public class ConvertVideo {
 
+    public static final String WINDOW_FFMPEG = "E:/Dance/ffmpeg/bin/ffmpeg";
+    public static final String LINUX_FFMPEG = "ffmpeg";
+
     //Windows下 ffmpeg.exe的路径
-    private final static String ffmpegEXE = "E:/Dance/ffmpeg/bin/ffmpeg";
+    private final static String ffmpegEXE = LINUX_FFMPEG;
 
     /**
      * 视频截图

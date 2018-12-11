@@ -22,7 +22,7 @@
                 <div class="col-md-8">
                     <video oncontextmenu = "return false" playsinline id="my-video" class="video-js vjs-16-9" controls preload="auto"
                            poster="MY_VIDEO_POSTER.jpg" th:poster="@{${video.cover}}" data-setup="{}">
-                        <source src="MY_VIDEO.mp4" th:src="@{${video.path}}" type='video/mp4'>
+                        <source id="video_source" th:src="${video.path}" type='video/mp4'>
 
                         <p class="vjs-no-js">
                             To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -31,14 +31,14 @@
                     </video>
 
                     <div class="clearfix shadow-sm">
-                        <div class="float-left pl-2 mt-3">
+                        <div class="float-left pl-2 m-2">
                             <span class="text-dark font-weight-bold" id="online_num">1</span>
                             <span class="text-muted">人正在看</span>
                         </div>
-                        <form class="form-inline float-right m-2">
+<!--                        <form class="form-inline float-right m-2">
                             <input id="emitContent" class="form-control mr-sm-2" type="text" placeholder="发送弹幕">
                             <button id="sendBtn" class="btn btn-outline-success my-2 my-sm-0" type="button">发送</button>
-                        </form>
+                        </form>-->
                     </div>
 
                     <div>
@@ -64,7 +64,7 @@
 
                     <div class="" th:each="videoitem : ${videos}">
                         <a th:href="@{'/video/'+${videoitem.id}}">
-                            <img style="width: 100%;" class="mt-1" th:src="@{${videoitem.cover}}" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                            <img style="width: 100%;" class="mt-1 lazy-img" th:lazyload="@{${videoitem.cover}}" src="/img/loading.gif" alt="Card image cap">
                         </a>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
     </section>
 </main>
 <footer th:replace="~{index :: footer}"></footer>
-<script src="/js/jquery-3.3.1.slim.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script src="/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 <script src="/js/holder.min.js" th:src="@{/js/holder.min.js}"></script>
@@ -81,5 +81,6 @@
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 <script th:src="@{/js/mv.js}"></script>
+<script th:src="@{/js/lazyloadimg.js}"></script>
 </body>
 </html>
