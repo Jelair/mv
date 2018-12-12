@@ -8,6 +8,7 @@ import com.uduck.mv.entity.form.DataPage;
 import com.uduck.mv.repository.PlayNumRepository;
 import com.uduck.mv.repository.VideoCheckRepository;
 import com.uduck.mv.repository.VideoRepository;
+import com.uduck.mv.util.ResponseResult;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -62,6 +63,23 @@ public class VideoServiceImpl implements IVideoService {
             videoDTOS.add(videoDTO);
         });
         return videoDTOS;
+    }
+
+    @Override
+    public ResponseResult getResponseResult(DataPage dataPage) {
+        List<VideoDTO> videoDTOS = new ArrayList<>();
+        Sort sort = new Sort(Sort.Direction.fromString(dataPage.getDirection()),dataPage.getOrderBy());
+        int startPage = dataPage.getStart();
+        Pageable pageable = PageRequest.of(startPage, dataPage.getLength(), sort);
+        Page<Video> videos = videoRepository.findByStatus(dataPage.getStatus(), pageable);
+        videos.getContent().forEach(video -> {
+            VideoDTO videoDTO = modelMapper.map(video, VideoDTO.class);
+            videoDTOS.add(videoDTO);
+        });
+        return ResponseResult.success()
+                .addData("videos", videoDTOS)
+                .addData("totalPage", videos.getTotalPages())
+                .addData("currentPage", dataPage.getStart());
     }
 
     @Override
@@ -143,6 +161,4 @@ public class VideoServiceImpl implements IVideoService {
 
         return true;
     }
-
-
 }

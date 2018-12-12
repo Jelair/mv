@@ -4,7 +4,9 @@ import com.uduck.mv.entity.Video;
 import com.uduck.mv.entity.VideoCheck;
 import com.uduck.mv.entity.dto.VideoDTO;
 import com.uduck.mv.entity.form.DataPage;
+import com.uduck.mv.util.ResponseResult;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 public interface IVideoService {
@@ -13,6 +15,8 @@ public interface IVideoService {
     List<Video> getVideos();
 
     List<VideoDTO> getVideoDtos(DataPage dataPage);
+
+    ResponseResult getResponseResult(DataPage dataPage);
 
     //List<VideoDTO> getVideoDtosByAdmin(DataPage dataPage);
 

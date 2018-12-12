@@ -66,14 +66,15 @@
     </section>
 
     <section class="py-5 bg-light">
-        <h2 class="text-center py-3">近期VLOG</h2>
+
         <div class="container">
+            <h2 class="text-left py-3">近期VLOG</h2>
             <div class="row">
 
                 <div class="col-md-4" th:each="video : ${videos}">
                     <div class="card mb-4 shadow-sm">
                         <a th:href="@{'/video/'+${video.id}}">
-                            <img class="card-img-top lazy-img" src="/img/loading.gif" th:lazyload="@{${video.cover}}" alt="Card image cap">
+                            <img class="card-img-top lazy-img" src="/img/loading.gif" th:lazyload="${video.cover}" alt="Card image cap">
                         </a>
                         <div class="card-body">
                             <div class="row">
@@ -82,7 +83,7 @@
                                     <p class="card-text"><small class="text-muted" th:text="${video.uploadTime.toString()}"></small></p>
                                 </div>
                                 <div class="col-3">
-                                    <img class="mx-auto rounded-circle lazy-img" th:lazyload="@{${video.getUser().getAvatar()}}" data-src="holder.js/60x60" alt="头像">
+                                    <img class="mx-auto rounded-circle lazy-img" th:lazyload="${video.getUser().getAvatar()}">
                                 </div>
                             </div>
                         </div>
@@ -90,6 +91,8 @@
                 </div>
 
             </div>
+
+            <div id="more" class="text-center bg-info py-1 text-white"></div>
         </div>
     </section>
 </main>
@@ -104,7 +107,7 @@
     </div>
 </footer>
 
-<script src="/js/jquery-3.3.1.slim.min.js" th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+<script src="/js/jquery-3.3.1.min.js" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 <script src="/js/holder.min.js" th:src="@{/js/holder.min.js}"></script>
@@ -113,6 +116,9 @@
     $(function () {
         $('.nav-item').removeClass('active');
         $('.nav-item:eq(0)').addClass('active');
+/*        var moreOffsetTop = $('#more').offset().top;
+        var screenHeight = $(window).height();
+        var scrollTop = $(window).scrollTop();*/
     });
 </script>
 </body>

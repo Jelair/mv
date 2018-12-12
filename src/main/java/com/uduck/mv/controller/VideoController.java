@@ -168,10 +168,12 @@ public class VideoController {
 
     @GetMapping("/api/videoDtos")
     @ResponseBody
-    public List<VideoDTO> getVideos(){
+    public ResponseResult getVideos(@RequestParam(value = "p", required = false) Integer startPage){
         DataPage dataPage = new DataPage();
-        List<VideoDTO> videos = videoService.getVideoDtos(dataPage);
-        return videos;
+        if (startPage != null){
+            dataPage.setStart(startPage);
+        }
+        return videoService.getResponseResult(dataPage);
     }
 
     @GetMapping("/api/playNum/{id}")
